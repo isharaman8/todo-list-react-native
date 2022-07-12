@@ -1,24 +1,12 @@
 // import "react-native-gesture-handler";
 import React from "react";
 import { StyleSheet } from "react-native";
-import {
-	Text,
-	Link,
-	HStack,
-	Center,
-	Heading,
-	Switch,
-	useColorMode,
-	NativeBaseProvider,
-	extendTheme,
-	VStack,
-	Box,
-	View,
-} from "native-base";
+import { NativeBaseProvider, extendTheme } from "native-base";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import ToggleDarkMode from "./src/screens/HomeScreen";
 import About from "./src/screens/Notifications";
+import CustomDrawer from "./src/components/CustomDrawer";
 
 // Define the config
 const config = {
@@ -48,9 +36,32 @@ export default function App() {
 	return (
 		<NativeBaseProvider>
 			<NavigationContainer>
-				<Drawer.Navigator useLegacyImplementation initialRouteName="About">
+				<Drawer.Navigator
+					useLegacyImplementation
+					initialRouteName="About"
+					screenOptions={{
+						headerShown: false,
+						drawerActiveBackgroundColor: "#413F42",
+						drawerActiveTintColor: "white",
+					}}
+					drawerContent={(props: any) => <CustomDrawer {...props} />}
+				>
 					<Drawer.Screen name="Home" component={ToggleDarkMode} />
-					<Drawer.Screen name="About" component={About} />
+					<Drawer.Screen
+						name="About"
+						component={About}
+						options={{
+							drawerActiveBackgroundColor: "white",
+							drawerContentContainerStyle: {
+								display: "none",
+							},
+							drawerInactiveBackgroundColor: "white",
+							drawerLabelStyle: {
+								color: "white",
+							},
+							// drawerStyle: { display: "none" },
+						}}
+					/>
 				</Drawer.Navigator>
 			</NavigationContainer>
 		</NativeBaseProvider>

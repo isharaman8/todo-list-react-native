@@ -19,8 +19,8 @@ import ToggleDarkMode from "./HomeScreen";
 
 const styles = StyleSheet.create({
 	avatar: {
-		width: 80,
-		height: 80,
+		width: 100,
+		height: 100,
 		marginBottom: 20,
 		borderColor: "white",
 		borderWidth: 2,
