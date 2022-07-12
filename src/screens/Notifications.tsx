@@ -22,6 +22,8 @@ const styles = StyleSheet.create({
 		width: 80,
 		height: 80,
 		marginBottom: 20,
+		borderColor: "white",
+		borderWidth: 2,
 	},
 });
 
@@ -52,7 +54,9 @@ export default function About() {
 						H3
 					</Avatar>
 					<Heading>About Author</Heading>
-					<Text>ABC is full-stack web developer from India</Text>
+					<Text style={{ width: "70%", textAlign: "center", marginTop: 5 }}>
+						ABC is full-stack web developer from India
+					</Text>
 					<VStack
 						style={{
 							justifyContent: "center",

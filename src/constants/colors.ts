@@ -1,8 +1,7 @@
 import { TextStyle } from "react-native";
 
 const ABOUTBUTTON: TextStyle = {
-	padding: 10,
-	borderRadius: 15,
+	// borderRadius: 15,
 	width: "70%",
 	textAlign: "center",
 	justifyContent: "center",
@@ -12,4 +11,11 @@ const ABOUTBUTTON: TextStyle = {
 	shadowRadius: 10,
 };
 
-export { ABOUTBUTTON };
+const LINEARLINE: TextStyle = {
+	width: "100%",
+	height: "100%",
+	justifyContent: "center",
+	alignItems: "center",
+};
+
+export { ABOUTBUTTON, LINEARLINE };
