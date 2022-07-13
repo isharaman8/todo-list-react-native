@@ -1,9 +1,22 @@
-import { Input, InputGroup, useColorMode, View } from "native-base";
-import React from "react";
+import {
+	Box,
+	Center,
+	FlatList,
+	Input,
+	InputGroup,
+	ScrollView,
+	Spacer,
+	useColorMode,
+	View,
+} from "native-base";
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import AddNoteButton from "../components/Home/AddNoteButton";
 import { COLORS } from "../constants/colors";
 import { MaterialIcons } from "@expo/vector-icons";
+import { DUMMY_DATA } from "../constants/dummy";
+import NotesRenderer from "../components/Home/NotesRenderer";
+import { INotes } from "../constants/types";
 
 const styles = StyleSheet.create({
 	mainview: { height: "100%" },
@@ -20,6 +33,7 @@ const styles = StyleSheet.create({
 });
 
 export default function HomeScreen() {
+	const [notes, setNotes] = useState<Array<INotes>>(DUMMY_DATA);
 	const { colorMode } = useColorMode();
 	return (
 		<View
@@ -43,13 +57,25 @@ export default function HomeScreen() {
 				borderRadius={15}
 				InputLeftElement={
 					<MaterialIcons
-						name="person"
+						name="search"
 						size={30}
 						style={{ marginLeft: 8, color: "grey" }}
 					/>
 				}
 			/>
-
+			{/* <ScrollView> */}
+			<Center mt={2}>
+				<FlatList
+					data={notes}
+					numColumns={2}
+					keyExtractor={(item) => item.title + Date.now() + Math.random() * 100}
+					// ItemSeparatorComponent={(props) => <Box m={2} />}
+					renderItem={({ item }: any) => {
+						return <NotesRenderer item={item} />;
+					}}
+				/>
+			</Center>
+			{/* </ScrollView> */}
 			<AddNoteButton />
 		</View>
 	);

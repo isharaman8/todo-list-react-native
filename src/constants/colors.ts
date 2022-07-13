@@ -35,6 +35,10 @@ const COLORS = {
 		dark: "#a5b5d9",
 		light: "#ffffff",
 	},
+	notes: {
+		dark: "#1A1A40",
+		light: "#6E85B7",
+	},
 };
 
 export { ABOUTBUTTON, LINEARLINE, COLORS };

@@ -4,3 +4,10 @@ export interface IAuthor {
 	textColor: string;
 	text: string;
 }
+
+export interface INotes {
+	title: string;
+	content: string;
+}
+
+export interface 
