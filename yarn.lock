@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"100@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/100/-/100-0.0.1.tgz#d8ae4c3ab20cac381198938738d7223183142724"
+  integrity sha512-I1YrQa9a9Jv6fM/cLyddkxVRo+spYj1ZA/gWQd63Zc7UMZ7BGRVqthd7oj/+RUMdRgZFuld2Uo/CWdLrpEUHKQ==
+
 "@ampproject/remapping@^2.1.0":
   version "2.2.0"
   resolved "https://registry.npmjs.org/@ampproject/remapping/-/remapping-2.2.0.tgz"
@@ -1209,7 +1214,7 @@
   resolved "https://registry.npmjs.org/@expo/sdk-runtime-versions/-/sdk-runtime-versions-1.0.0.tgz"
   integrity sha512-Doz2bfiPndXYFPMRwPyGa1k5QaKDVpY806UJj570epIiMzWaYyCtobasyfC++qfIXVb5Ocy7r3tP9d62hAQ7IQ==
 
-"@expo/vector-icons@^12.0.4":
+"@expo/vector-icons@^12.0.0", "@expo/vector-icons@^12.0.4":
   version "12.0.5"
   resolved "https://registry.npmjs.org/@expo/vector-icons/-/vector-icons-12.0.5.tgz"
   integrity sha512-zWvHBmkpbi1KrPma6Y+r/bsGI6MjbM1MBSe6W9A4uYMLhNI5NR4JtTnqxhf7g1XdpaDtBdv5aOWKEx4d5rxnhg==

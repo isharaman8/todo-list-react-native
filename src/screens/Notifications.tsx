@@ -15,7 +15,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import LinearGradientButton from "../components/LinearGradientButton";
 import { AUTHORDETAILS } from "../constants/authorDetails";
 import { IAuthor } from "../constants/types";
-import ToggleDarkMode from "./HomeScreen";
+import ToggleDarkMode from "../components/ToggleDarkMode";
 
 const styles = StyleSheet.create({
 	avatar: {

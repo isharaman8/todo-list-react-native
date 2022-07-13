@@ -18,4 +18,23 @@ const LINEARLINE: TextStyle = {
 	alignItems: "center",
 };
 
-export { ABOUTBUTTON, LINEARLINE };
+const COLORS = {
+	button: {
+		dark: "#1A1A40",
+		light: "#6E85B7",
+	},
+	customDrawer: {
+		dark: "#a5b5d9",
+		light: "#ffffff",
+	},
+	customDrawerPanel: {
+		dark: "#1A1A40",
+		light: "#413F42",
+	},
+	mainScreenBackground: {
+		dark: "#a5b5d9",
+		light: "#ffffff",
+	},
+};
+
+export { ABOUTBUTTON, LINEARLINE, COLORS };

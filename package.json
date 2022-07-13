@@ -18,6 +18,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "100": "^0.0.1",
+    "@expo/vector-icons": "^12.0.0",
     "@react-navigation/drawer": "^6.4.3",
     "@react-navigation/native": "^6.0.11",
     "expo": "^44.0.0",
