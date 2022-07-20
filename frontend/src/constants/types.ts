@@ -10,4 +10,4 @@ export interface INotes {
 	content: string;
 }
 
-export interface 
+// export interface
