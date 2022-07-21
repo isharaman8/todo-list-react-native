@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { COLORS } from '../../constants/colors'
 import { addEditNote, removeEditNote } from '../../redux/loginReducer/actions'
 import SingleNotesMenu from './SingleNotesMenu'
+import { useLinkTo } from '@react-navigation/native'
 
 const styles = StyleSheet.create({
   animatedView: {
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
 
 const NotesRenderer = ({ item, notes, addEditNote, removeEditNote }: any) => {
   const { colorMode } = useColorMode()
-
+  const linkTo = useLinkTo()
   const fadeAnim = useRef(new Animated.Value(1)).current
 
   const touchStartAnimation = () => {
@@ -72,6 +73,7 @@ const NotesRenderer = ({ item, notes, addEditNote, removeEditNote }: any) => {
       }}
       onTouchEnd={(e) => {
         addEditNote(item)
+        linkTo('/Edit')
         e.stopPropagation()
       }}
     >
