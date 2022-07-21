@@ -5,6 +5,7 @@ import {
   Input,
   InputGroup,
   ScrollView,
+  SearchIcon,
   Spacer,
   useColorMode,
   View,
@@ -56,9 +57,9 @@ export default function HomeScreen() {
         fontSize={18}
         borderRadius={15}
         InputLeftElement={
-          <MaterialIcons
+          <SearchIcon
             name="search"
-            size={30}
+            size={25}
             style={{ marginLeft: 8, color: 'grey' }}
           />
         }

@@ -8,8 +8,8 @@ import {
   DeleteIcon,
 } from 'native-base'
 import React, { useEffect, useState } from 'react'
+import { Pressable } from 'react-native'
 import { connect } from 'react-redux'
-import EditNoteMenu from '../components/Home/EditNoteMenu'
 import { addEditNote, removeEditNote } from '../redux/loginReducer/actions'
 
 function EditNote(props: any) {
@@ -29,6 +29,9 @@ function EditNote(props: any) {
     setmContent(content || '')
   }, [content, title])
 
+  const handleUpdateEditNote = () => {}
+  const handleDeleteEditNote = () => {}
+
   return (
     <View>
       <Box
@@ -41,10 +44,16 @@ function EditNote(props: any) {
           marginTop: 30,
           marginLeft: 'auto',
           marginRight: 'auto',
+          marginBottom: 10,
         }}
       >
-        <CheckIcon style={{ color: 'black' }} size={5} />
-        <DeleteIcon style={{ color: 'black' }} size={5} />
+        <Pressable onTouchEnd={handleUpdateEditNote}>
+          <CheckIcon style={{ color: 'black' }} size={5} />
+        </Pressable>
+
+        <Pressable onTouchEnd={handleDeleteEditNote}>
+          <DeleteIcon style={{ color: 'black' }} size={5} />
+        </Pressable>
         {/* <ThreeDotsIcon
           style={{ color: 'black', transform: [{ rotate: `90deg` }] }}
           size={5}

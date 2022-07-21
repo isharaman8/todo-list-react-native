@@ -37,6 +37,7 @@ export default function MainEntry() {
         }}
       />
       <Drawer.Screen name="Edit" component={EditNote} />
+      <Drawer.Screen name="Add" component={EditNote} />
     </Drawer.Navigator>
   )
 }
