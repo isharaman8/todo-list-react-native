@@ -10,7 +10,7 @@ import {
   useColorMode,
   View,
 } from 'native-base'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import AddNoteButton from '../components/Home/AddNoteButton'
 import { COLORS } from '../constants/colors'
@@ -18,6 +18,8 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { DUMMY_DATA } from '../constants/dummy'
 import NotesRenderer from '../components/Home/NotesRenderer'
 import { INotes } from '../constants/types'
+import { connect } from 'react-redux'
+import { addEditNote, removeEditNote } from '../redux/loginReducer/actions'
 
 const styles = StyleSheet.create({
   mainview: { height: '100%' },
@@ -33,9 +35,13 @@ const styles = StyleSheet.create({
   },
 })
 
-export default function HomeScreen() {
-  const [notes, setNotes] = useState<Array<INotes>>(DUMMY_DATA)
+function HomeScreen({ notes, addEditNote, removeEditNote }: any) {
+  const [mNotes, setMNotes] = useState<Array<INotes>>(notes)
   const { colorMode } = useColorMode()
+
+  useEffect(() => {
+    console.log(mNotes)
+  }, [])
   return (
     <View
       style={{
@@ -67,11 +73,11 @@ export default function HomeScreen() {
       {/* <ScrollView> */}
       <Center mt={2}>
         <FlatList
-          data={notes}
+          data={mNotes.notes}
           numColumns={2}
           keyExtractor={(item) => item.title + Date.now() + Math.random() * 100}
-          renderItem={({ item }: any) => {
-            return <NotesRenderer item={item} />
+          renderItem={({ item, index }: any) => {
+            return <NotesRenderer item={item} index={index} />
           }}
         />
       </Center>
@@ -80,3 +86,19 @@ export default function HomeScreen() {
     </View>
   )
 }
+
+const mapStateToProps = (state: any) => {
+  return {
+    notes: state.notes,
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    addEditNote: (payload: any, index: number) =>
+      dispatch(addEditNote(payload, index)),
+    removeEditNote: (payload: any) => dispatch(removeEditNote(payload)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)

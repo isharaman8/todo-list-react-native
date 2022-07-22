@@ -6,31 +6,63 @@ import {
   Box,
   CheckIcon,
   DeleteIcon,
+  useToast,
 } from 'native-base'
 import React, { useEffect, useState } from 'react'
 import { Pressable } from 'react-native'
 import { connect } from 'react-redux'
-import { addEditNote, removeEditNote } from '../redux/loginReducer/actions'
+import {
+  addEditNote,
+  addNotes,
+  editNote,
+  removeEditNote,
+  removeNotes,
+} from '../redux/loginReducer/actions'
+import { useLinkTo } from '@react-navigation/native'
 
 function EditNote(props: any) {
+  const toast = useToast()
+  const linkTo = useLinkTo()
   const {
     notes: {
-      editNote: { content, title },
+      editNote: { content, title, index },
     },
     addEditNote,
     removeEditNote,
+    addNotes,
+    removeNotes,
+    editNote,
   } = props
 
   const [heading, setHeading] = useState<string>(title || '')
   const [mContent, setmContent] = useState<string>(content || '')
+  const [mIndex, setMIndex] = useState<number>(index || 0)
 
   useEffect(() => {
     setHeading(title || '')
     setmContent(content || '')
+    setMIndex(index || 0)
   }, [content, title])
 
-  const handleUpdateEditNote = () => {}
-  const handleDeleteEditNote = () => {}
+  const handleUpdateEditNote = () => {
+    if (heading && mContent) {
+      if (!isNaN(mIndex)) {
+        editNote({ content: mContent, title: heading }, mIndex)
+      } else addNotes({ content: mContent, title: heading })
+      linkTo('/Home')
+    } else
+      toast.show({
+        title: 'Heading and content both required',
+        placement: 'bottom',
+      })
+  }
+  const handleDeleteEditNote = () => {
+    if (!isNaN(mIndex)) removeNotes(mIndex)
+
+    removeEditNote()
+
+    linkTo('/Home')
+  }
 
   return (
     <View>
@@ -97,8 +129,13 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    addEditNote: (payload: any) => dispatch(addEditNote(payload)),
+    addEditNote: (payload: any, index: number) =>
+      dispatch(addEditNote(payload, index)),
     removeEditNote: (payload: any) => dispatch(removeEditNote(payload)),
+    editNote: (payload: any, index: number) =>
+      dispatch(editNote(payload, index)),
+    addNotes: (payload: any) => dispatch(addNotes(payload)),
+    removeNotes: (index: number) => dispatch(removeNotes(index)),
   }
 }
 

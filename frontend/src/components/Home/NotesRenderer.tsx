@@ -1,5 +1,5 @@
 import { Box, Heading, Spacer, Text, useColorMode } from 'native-base'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { StyleSheet } from 'react-native'
 import Animated, { Easing, EasingNode } from 'react-native-reanimated'
 import { connect } from 'react-redux'
@@ -21,7 +21,13 @@ const styles = StyleSheet.create({
   },
 })
 
-const NotesRenderer = ({ item, notes, addEditNote, removeEditNote }: any) => {
+const NotesRenderer = ({
+  item,
+  notes,
+  addEditNote,
+  removeEditNote,
+  index,
+}: any) => {
   const { colorMode } = useColorMode()
   const linkTo = useLinkTo()
   const fadeAnim = useRef(new Animated.Value(1)).current
@@ -72,7 +78,7 @@ const NotesRenderer = ({ item, notes, addEditNote, removeEditNote }: any) => {
         console.log('touched')
       }}
       onTouchEnd={(e) => {
-        addEditNote(item)
+        addEditNote(item, index)
         linkTo('/Edit')
         e.stopPropagation()
       }}
@@ -97,7 +103,8 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    addEditNote: (payload: any) => dispatch(addEditNote(payload)),
+    addEditNote: (payload: any, index: number) =>
+      dispatch(addEditNote(payload, index)),
     removeEditNote: (payload: any) => dispatch(removeEditNote(payload)),
   }
 }

@@ -14,7 +14,7 @@ export default function MainEntry() {
   return (
     <Drawer.Navigator
       useLegacyImplementation
-      initialRouteName="Edit"
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
         drawerActiveBackgroundColor:
