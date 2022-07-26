@@ -1,11 +1,27 @@
 import { Box, Menu, Pressable, ThreeDotsIcon } from 'native-base'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { useLinkTo } from '@react-navigation/native'
 import { COLORS } from '../../constants/colors'
-import { addEditNote, removeEditNote } from '../../redux/loginReducer/actions'
+import {
+  addEditNote,
+  addNotes,
+  editNote,
+  removeEditNote,
+  removeNotes,
+} from '../../redux/loginReducer/actions'
 
-export default (props: any) => {
+function singleNotesMenu(props: any) {
   const [open, setOpen] = useState<boolean>(false)
+  const linkTo = useLinkTo()
+
+  const handleSingleNoteDelete = () => {
+    props.removeNotes(props.index)
+  }
+  const handleSingleNoteEdit = () => {
+    props.addEditNote(props.item, props.index)
+    linkTo('/Edit')
+  }
   return (
     <Box style={{ position: 'absolute', right: 5, top: 15, zIndex: 2 }}>
       <Menu
@@ -36,9 +52,29 @@ export default (props: any) => {
           )
         }}
       >
-        <Menu.Item>Text</Menu.Item>
-        <Menu.Item>Text</Menu.Item>
+        <Menu.Item onPress={handleSingleNoteDelete}>Delete</Menu.Item>
+        <Menu.Item onPress={handleSingleNoteEdit}>Edit</Menu.Item>
       </Menu>
     </Box>
   )
 }
+
+const mapStateToProps = (state: any) => {
+  return {
+    notes: state.notes,
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    addEditNote: (payload: any, index: number) =>
+      dispatch(addEditNote(payload, index)),
+    removeEditNote: () => dispatch(removeEditNote()),
+    editNote: (payload: any, index: number) =>
+      dispatch(editNote(payload, index)),
+    addNotes: (payload: any) => dispatch(addNotes(payload)),
+    removeNotes: (index: number) => dispatch(removeNotes(index)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(singleNotesMenu)

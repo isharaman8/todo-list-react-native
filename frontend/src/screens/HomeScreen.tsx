@@ -1,12 +1,8 @@
 import {
-  Box,
   Center,
   FlatList,
   Input,
-  InputGroup,
-  ScrollView,
   SearchIcon,
-  Spacer,
   useColorMode,
   View,
 } from 'native-base'
@@ -14,8 +10,6 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import AddNoteButton from '../components/Home/AddNoteButton'
 import { COLORS } from '../constants/colors'
-import { MaterialIcons } from '@expo/vector-icons'
-import { DUMMY_DATA } from '../constants/dummy'
 import NotesRenderer from '../components/Home/NotesRenderer'
 import { INotes } from '../constants/types'
 import { connect } from 'react-redux'
@@ -40,7 +34,8 @@ function HomeScreen({ notes, addEditNote, removeEditNote }: any) {
   const { colorMode } = useColorMode()
 
   useEffect(() => {
-    console.log(mNotes)
+    setMNotes(notes.notes)
+    // console.log(notes)
   }, [])
   return (
     <View
@@ -71,11 +66,28 @@ function HomeScreen({ notes, addEditNote, removeEditNote }: any) {
         }
       />
       {/* <ScrollView> */}
-      <Center mt={2}>
+      <Center
+        mt={2}
+        style={{
+          width: '94%',
+          // borderColor: 'red',
+          // borderWidth: 3,
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+      >
         <FlatList
-          data={mNotes.notes}
+          data={notes.notes}
           numColumns={2}
-          keyExtractor={(item) => item.title + Date.now() + Math.random() * 100}
+          style={{ width: '100%', height: '100%' }}
+          _contentContainerStyle={{
+            flex: 1,
+            justifyContent: 'flex-start',
+            width: '100%',
+          }}
+          keyExtractor={(item: any) =>
+            item.title + Date.now() + Math.random() * 100
+          }
           renderItem={({ item, index }: any) => {
             return <NotesRenderer item={item} index={index} />
           }}

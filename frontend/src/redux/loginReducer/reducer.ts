@@ -20,7 +20,6 @@ export const notesReducer = (state = initialState, action: any) => {
         ),
       }
     case ADD_EDIT_NOTES:
-      console.log(action)
       return { ...state, editNote: { ...action.payload, index: action.index } }
 
     case REMOVE_EDIT_NOTES:

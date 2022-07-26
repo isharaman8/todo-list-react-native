@@ -75,7 +75,6 @@ const NotesRenderer = ({
       onTouchStart={(e) => {
         e.stopPropagation()
         e.preventDefault()
-        console.log('touched')
       }}
       onTouchEnd={(e) => {
         addEditNote(item, index)
@@ -83,7 +82,7 @@ const NotesRenderer = ({
         e.stopPropagation()
       }}
     >
-      <SingleNotesMenu />
+      <SingleNotesMenu index={index} item={item} />
 
       <Heading w="92%" fontSize={23} mb={2}>
         {item.title}
@@ -105,7 +104,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     addEditNote: (payload: any, index: number) =>
       dispatch(addEditNote(payload, index)),
-    removeEditNote: (payload: any) => dispatch(removeEditNote(payload)),
+    removeEditNote: () => dispatch(removeEditNote()),
   }
 }
 

@@ -3,6 +3,8 @@ import React from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import { COLORS } from '../../constants/colors'
 import { useLinkTo } from '@react-navigation/native'
+import { addEditNote, removeEditNote } from '../../redux/loginReducer/actions'
+import { connect } from 'react-redux'
 
 const styles = StyleSheet.create({
   button: {
@@ -23,11 +25,12 @@ const styles = StyleSheet.create({
   },
 })
 
-export default function AddNoteButton() {
+function AddNoteButton({ notes, addEditNote, removeEditNote }: any) {
   const { colorMode } = useColorMode()
   const linkTo = useLinkTo()
 
   const handleAddNewNote = () => {
+    removeEditNote()
     linkTo('/Add')
   }
 
@@ -46,3 +49,19 @@ export default function AddNoteButton() {
     </TouchableOpacity>
   )
 }
+
+const mapStateToProps = (state: any) => {
+  return {
+    notes: state.notes,
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    addEditNote: (payload: any, index: number) =>
+      dispatch(addEditNote(payload, index)),
+    removeEditNote: () => dispatch(removeEditNote()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddNoteButton)

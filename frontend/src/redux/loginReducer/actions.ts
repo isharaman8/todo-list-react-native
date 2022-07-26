@@ -22,6 +22,6 @@ export const editNote = (payload: any, index: number) => {
   return { type: EDIT_NOTE, payload, index }
 }
 
-export const removeEditNote = (payload: any) => {
-  return { type: REMOVE_EDIT_NOTES, payload }
+export const removeEditNote = () => {
+  return { type: REMOVE_EDIT_NOTES }
 }

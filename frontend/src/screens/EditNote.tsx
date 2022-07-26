@@ -34,21 +34,26 @@ function EditNote(props: any) {
     editNote,
   } = props
 
-  const [heading, setHeading] = useState<string>(title || '')
-  const [mContent, setmContent] = useState<string>(content || '')
-  const [mIndex, setMIndex] = useState<number>(index || 0)
+  const [heading, setHeading] = useState<string | null>(title)
+  const [mContent, setmContent] = useState<string | null>(content)
+  const [mIndex, setMIndex] = useState<number | null>(index)
 
   useEffect(() => {
-    setHeading(title || '')
-    setmContent(content || '')
-    setMIndex(index || 0)
+    setHeading(title || null)
+    setmContent(content || null)
+
+    if (index !== null) setMIndex(index)
   }, [content, title])
 
   const handleUpdateEditNote = () => {
     if (heading && mContent) {
-      if (!isNaN(mIndex)) {
+      if (mIndex !== null) {
         editNote({ content: mContent, title: heading }, mIndex)
       } else addNotes({ content: mContent, title: heading })
+      removeEditNote()
+      setHeading(null)
+      setmContent(null)
+      setMIndex(null)
       linkTo('/Home')
     } else
       toast.show({
@@ -57,7 +62,7 @@ function EditNote(props: any) {
       })
   }
   const handleDeleteEditNote = () => {
-    if (!isNaN(mIndex)) removeNotes(mIndex)
+    if (mIndex !== null) removeNotes(mIndex)
 
     removeEditNote()
 
@@ -96,7 +101,7 @@ function EditNote(props: any) {
           _dark={{ background: 'amber.400' }}
           _light={{ background: 'blue.400' }}
           placeholder={'Notes Heading'}
-          value={heading}
+          value={heading as string | undefined}
           fontSize={'20'}
           borderLeftWidth={0}
           borderRightWidth={0}
@@ -113,7 +118,7 @@ function EditNote(props: any) {
           placeholder="Write notes in details."
           alignItems={'flex-start'}
           fontSize={'18'}
-          value={mContent}
+          value={mContent as string | undefined}
           onChangeText={(text: string) => setmContent(text)}
         />
       </Center>
@@ -131,7 +136,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     addEditNote: (payload: any, index: number) =>
       dispatch(addEditNote(payload, index)),
-    removeEditNote: (payload: any) => dispatch(removeEditNote(payload)),
+    removeEditNote: () => dispatch(removeEditNote()),
     editNote: (payload: any, index: number) =>
       dispatch(editNote(payload, index)),
     addNotes: (payload: any) => dispatch(addNotes(payload)),
