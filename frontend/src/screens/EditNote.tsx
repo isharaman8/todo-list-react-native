@@ -11,6 +11,7 @@ import {
 import React, { useEffect, useState } from 'react'
 import { Pressable } from 'react-native'
 import { connect } from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
   addEditNote,
   addNotes,
@@ -19,6 +20,7 @@ import {
   removeNotes,
 } from '../redux/loginReducer/actions'
 import { useLinkTo } from '@react-navigation/native'
+import { COLORS } from '../constants/colors'
 
 function EditNote(props: any) {
   const toast = useToast()
@@ -26,6 +28,7 @@ function EditNote(props: any) {
   const {
     notes: {
       editNote: { content, title, index },
+      notes,
     },
     addEditNote,
     removeEditNote,
@@ -45,11 +48,13 @@ function EditNote(props: any) {
     if (index !== null) setMIndex(index)
   }, [content, title])
 
-  const handleUpdateEditNote = () => {
+  const handleUpdateEditNote = async () => {
     if (heading && mContent) {
       if (mIndex !== null) {
         editNote({ content: mContent, title: heading }, mIndex)
       } else addNotes({ content: mContent, title: heading })
+
+      await AsyncStorage.setItem('storagenotes', JSON.stringify(notes))
       removeEditNote()
       setHeading(null)
       setmContent(null)
@@ -70,7 +75,13 @@ function EditNote(props: any) {
   }
 
   return (
-    <View>
+    <View
+      _dark={{
+        backgroundColor: COLORS.mainScreenBackground.dark,
+        color: 'black',
+      }}
+      style={{ height: '100%' }}
+    >
       <Box
         style={{
           display: 'flex',
@@ -98,8 +109,8 @@ function EditNote(props: any) {
       </Box>
       <Center>
         <Input
-          _dark={{ background: 'amber.400' }}
-          _light={{ background: 'blue.400' }}
+          _dark={{ background: 'amber.400', color: 'black' }}
+          _light={{ background: 'blue.400', color: 'black' }}
           placeholder={'Notes Heading'}
           value={heading as string | undefined}
           fontSize={'20'}
@@ -113,6 +124,8 @@ function EditNote(props: any) {
           mt={1}
         />
         <TextArea
+          _dark={{ color: 'black' }}
+          _light={{ color: 'black' }}
           m={5}
           borderWidth={0}
           placeholder="Write notes in details."

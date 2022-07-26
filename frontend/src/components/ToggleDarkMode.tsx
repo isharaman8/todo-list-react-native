@@ -6,7 +6,7 @@ function ToggleDarkMode({ navigation }: any) {
   const { colorMode, toggleColorMode } = useColorMode()
   return (
     <HStack space={2} alignItems="center">
-      <Text>Dark</Text>
+      <Text _dark={{ color: 'black' }}>Dark</Text>
       <Switch
         isChecked={colorMode === 'light'}
         onToggle={toggleColorMode}
@@ -14,7 +14,7 @@ function ToggleDarkMode({ navigation }: any) {
           colorMode === 'light' ? 'switch to dark mode' : 'switch to light mode'
         }
       />
-      <Text>Light</Text>
+      <Text _dark={{ color: 'black' }}>Light</Text>
     </HStack>
   )
 }

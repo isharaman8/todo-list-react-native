@@ -6,6 +6,7 @@ import {
   useColorMode,
   View,
 } from 'native-base'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import AddNoteButton from '../components/Home/AddNoteButton'
@@ -33,8 +34,22 @@ function HomeScreen({ notes, addEditNote, removeEditNote }: any) {
   const [mNotes, setMNotes] = useState<Array<INotes>>([])
   const { colorMode } = useColorMode()
 
+  const getNotesFromAsyncStorage = async (): Promise<any> => {
+    let asyncNotes = await AsyncStorage.getItem('storagenotes')
+    if (asyncNotes) asyncNotes = JSON.parse(asyncNotes)
+
+    console.log('Async-Notes', asyncNotes)
+
+    return asyncNotes
+  }
+
   useEffect(() => {
-    setMNotes(notes.notes)
+    const setNotesFromAsync = async () => {
+      const asyncnotes = await getNotesFromAsyncStorage()
+      if (asyncnotes) setMNotes(asyncnotes)
+      else setMNotes(notes.notes)
+    }
+    setNotesFromAsync()
   }, [notes])
 
   const handleSearchInput = (text: string) => {
