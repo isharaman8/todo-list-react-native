@@ -30,13 +30,24 @@ const styles = StyleSheet.create({
 })
 
 function HomeScreen({ notes, addEditNote, removeEditNote }: any) {
-  const [mNotes, setMNotes] = useState<Array<INotes>>(notes)
+  const [mNotes, setMNotes] = useState<Array<INotes>>([])
   const { colorMode } = useColorMode()
 
   useEffect(() => {
     setMNotes(notes.notes)
-    // console.log(notes)
-  }, [])
+  }, [notes])
+
+  const handleSearchInput = (text: string) => {
+    if (text) {
+      const filteredArray: INotes[] = mNotes.filter(
+        (sNote: INotes) =>
+          sNote.content.toLowerCase().includes(text.toLowerCase()) ||
+          sNote.title.toLowerCase().includes(text.toLowerCase())
+      )
+      setMNotes(filteredArray)
+    } else setMNotes(notes.notes)
+  }
+
   return (
     <View
       style={{
@@ -57,6 +68,7 @@ function HomeScreen({ notes, addEditNote, removeEditNote }: any) {
         placeholder="Search Notes"
         fontSize={18}
         borderRadius={15}
+        onChangeText={(text: string) => handleSearchInput(text)}
         InputLeftElement={
           <SearchIcon
             name="search"
@@ -77,7 +89,7 @@ function HomeScreen({ notes, addEditNote, removeEditNote }: any) {
         }}
       >
         <FlatList
-          data={notes.notes}
+          data={mNotes}
           numColumns={2}
           style={{ width: '100%', height: '100%' }}
           _contentContainerStyle={{
