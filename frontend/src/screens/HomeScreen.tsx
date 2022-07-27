@@ -38,18 +38,11 @@ function HomeScreen({ notes, addEditNote, removeEditNote }: any) {
     let asyncNotes = await AsyncStorage.getItem('storagenotes')
     if (asyncNotes) asyncNotes = JSON.parse(asyncNotes)
 
-    console.log('Async-Notes', asyncNotes)
-
     return asyncNotes
   }
 
   useEffect(() => {
-    const setNotesFromAsync = async () => {
-      const asyncnotes = await getNotesFromAsyncStorage()
-      if (asyncnotes) setMNotes(asyncnotes)
-      else setMNotes(notes.notes)
-    }
-    setNotesFromAsync()
+    setMNotes(notes.notes)
   }, [notes])
 
   const handleSearchInput = (text: string) => {

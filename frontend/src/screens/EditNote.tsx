@@ -11,7 +11,6 @@ import {
 import React, { useEffect, useState } from 'react'
 import { Pressable } from 'react-native'
 import { connect } from 'react-redux'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
   addEditNote,
   addNotes,
@@ -54,7 +53,6 @@ function EditNote(props: any) {
         editNote({ content: mContent, title: heading }, mIndex)
       } else addNotes({ content: mContent, title: heading })
 
-      await AsyncStorage.setItem('storagenotes', JSON.stringify(notes))
       removeEditNote()
       setHeading(null)
       setmContent(null)
@@ -66,11 +64,10 @@ function EditNote(props: any) {
         placement: 'bottom',
       })
   }
-  const handleDeleteEditNote = () => {
+  const handleDeleteEditNote = async () => {
     if (mIndex !== null) removeNotes(mIndex)
 
     removeEditNote()
-
     linkTo('/Home')
   }
 

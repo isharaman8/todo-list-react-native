@@ -5,7 +5,8 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import MainEntry from './src/screens'
 import { Provider } from 'react-redux'
-import store from './src/redux/store'
+import store, { persistor } from './src/redux/store'
+import { PersistGate } from 'redux-persist/integration/react'
 
 // Define the config
 const config = {
@@ -24,9 +25,11 @@ export default function App() {
   return (
     <NativeBaseProvider>
       <Provider store={store}>
-        <NavigationContainer>
-          <MainEntry />
-        </NavigationContainer>
+        <PersistGate loading={null} persistor={persistor}>
+          <NavigationContainer>
+            <MainEntry />
+          </NavigationContainer>
+        </PersistGate>
       </Provider>
     </NativeBaseProvider>
   )
